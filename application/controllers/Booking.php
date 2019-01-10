@@ -67,7 +67,7 @@ class Booking extends CI_Controller {
 	}
 	public function delete($id)
 	{
-		 $this->mod->delete($id);
+		$this->mod->delete($id);
 		redirect(site_url('booking'));
 	}
 
@@ -77,6 +77,14 @@ class Booking extends CI_Controller {
 		$this->parser->parse('booking/tampil_detail', $data);
 	}
 
+	public function cari_produk($id) 
+	{
+		$data = $this->m_produk->detail_produk($id);
+		return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(200)
+            ->set_output(json_encode($data));
+	}
 }
 
 /* End of file booking.php */

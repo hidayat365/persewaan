@@ -165,21 +165,15 @@ $this->load->view('_partials/sidebar');
                 var id_produk=$("#id_produk").val();
             
                 $.ajax({
-                    url:"<?php echo site_url('booking/cariProduk');?>",
-                    type:"POST",
-                    data:"id_produk="+id_produk,
-                    cache:false,
-                    success:function(msg) {
-                        data=msg.split("|");
-                        if (data==0) {
-                            alert("Data produk tidak ditemukan");
-                            $("#nama").val('');
-                            $("#stok").val('');
-                        } else {
-                            $("#nama").val(data[0]);
-                            $("#stok").val(data[1]);
-                            $("#tambah").focus();
-                        }
+                    url: "<?= site_url('booking/cari_produk/') ?>" + id_produk,
+                    type: "GET",
+                    cache: false,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.result != null) {
+                        $("#nama").val(response.result.nama);
+                        $("#stok").val(response.result.stok);
+                    }
                     }
                 })
             }
@@ -198,10 +192,10 @@ $this->load->view('_partials/sidebar');
                 return false
             } else {
                 $.ajax({
-                    url:"<?php echo site_url('booking/tambah');?>",
-                    type:"POST",
-                    data:"id_produk="+id_produk+"&nama="+nama+"&stok="+stok,
-                    cache:false,
+                    url: "<?php echo site_url('booking/tambah');?>",
+                    type: "POST",
+                    data: "id_produk="+id_produk+"&nama="+nama+"&stok="+stok,
+                    cache: false,
                     success:function(html) {
                         loadData();
                         kosong();
@@ -215,20 +209,14 @@ $this->load->view('_partials/sidebar');
             var id_produk=$("#id_produk").val();
         
             $.ajax({
-                url:"<?php echo site_url('booking/cariProduk'); ?>",
-                type:"POST",
-                data:"id_produk="+id_produk,
-                cache:false,
-                success:function(msg) {
-                    data=msg.split("|");
-                    if (data==0) {
-                        alert("Data produk tidak ditemukan");
-                        $("#nama").val('');
-                        $("#stok").val('');
-                    } else {
-                        $("#nama").val(data[0]);
-                        $("#stok").val(data[1]);
-                        $("#tambah").focus();
+                url: "<?= site_url('booking/cari_produk/') ?>" + id_produk,
+                type: "GET",
+                cache: false,
+                dataType: "json",
+                success: function(response) {
+                    if (response.result != null) {
+                        $("#nama").val(response.result.nama);
+                        $("#stok").val(response.result.stok);
                     }
                 }
             })
@@ -249,11 +237,11 @@ $this->load->view('_partials/sidebar');
                 return false;
             } else {
                 $.ajax({
-                    url:"<?php echo site_url('booking/sukses');?>",
-                    type:"POST",
-                    data:"id_booking="+id_booking+"&tgl_booking="+tgl_booking+"&kembali="+kembali+"&id_produk="+id_produk+"&jumlah="+jumlah,
-                    cache:false,
-                    success:function(html) {
+                    url: "<?php echo site_url('booking/sukses');?>",
+                    type: "POST",
+                    data: "id_booking="+id_booking+"&tgl_booking="+tgl_booking+"&kembali="+kembali+"&id_produk="+id_produk+"&jumlah="+jumlah,
+                    cache: false,
+                    success: function(html) {
                         alert("Transaksi Booking berhasil");
                         location.reload();
                     }
@@ -266,10 +254,10 @@ $this->load->view('_partials/sidebar');
             var id_produk=$(this).attr("id_produk");
             
             $.ajax({
-                url:"<?php echo site_url('booking/hapus');?>",
-                type:"POST",
-                data:"id_produk="+id_produk,
-                cache:false,
+                url: "<?php echo site_url('booking/hapus');?>",
+                type: "POST",
+                data: "id_produk="+id_produk,
+                cache: false,
                 success:function(html) {
                     loadData();
                 }
@@ -278,20 +266,6 @@ $this->load->view('_partials/sidebar');
         
         $("#cari").click(function() {
             $("#myModal2").modal("show");
-        })
-        
-        $("#cariProduk").keyup(function() {
-            var cariProduk=$("#cariProduk").val();
-            
-            $.ajax({
-                url:"<?php echo site_url('booking/pencarianbuku');?>",
-                type:"POST",
-                data:"cariProduk="+cariProduk,
-                cache:false,
-                success:function(html) {
-                    $("#tampilbuku").html(html);
-                }
-            })
         })
         
         $(".tambah").on("click",function() {
