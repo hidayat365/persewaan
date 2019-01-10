@@ -24,7 +24,7 @@ $this->load->view('_partials/sidebar');
   <!-- Default box -->
  <div class="panel panel-default">
     <div class="panel-body">
-        <form class="form-horizontal" action="<?php echo site_url('peminjaman/simpan');?>" method="post">
+        <form class="form-horizontal" action="<?php echo site_url('booking/simpan');?>" method="post">
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-lg-4 control-label">ID. Transaksi</label>
@@ -165,7 +165,7 @@ $this->load->view('_partials/sidebar');
                 var id_produk=$("#id_produk").val();
             
                 $.ajax({
-                    url:"<?php echo site_url('peminjaman/cariProduk');?>",
+                    url:"<?php echo site_url('booking/cariProduk');?>",
                     type:"POST",
                     data:"id_produk="+id_produk,
                     cache:false,
@@ -198,7 +198,7 @@ $this->load->view('_partials/sidebar');
                 return false
             } else {
                 $.ajax({
-                    url:"<?php echo site_url('peminjaman/tambah');?>",
+                    url:"<?php echo site_url('booking/tambah');?>",
                     type:"POST",
                     data:"id_produk="+id_produk+"&nama="+nama+"&stok="+stok,
                     cache:false,
@@ -215,7 +215,7 @@ $this->load->view('_partials/sidebar');
             var id_produk=$("#id_produk").val();
         
             $.ajax({
-                url:"<?php echo site_url('peminjaman/cariProduk'); ?>",
+                url:"<?php echo site_url('booking/cariProduk'); ?>",
                 type:"POST",
                 data:"id_produk="+id_produk,
                 cache:false,
@@ -249,12 +249,12 @@ $this->load->view('_partials/sidebar');
                 return false;
             } else {
                 $.ajax({
-                    url:"<?php echo site_url('peminjaman/sukses');?>",
+                    url:"<?php echo site_url('booking/sukses');?>",
                     type:"POST",
                     data:"id_booking="+id_booking+"&tgl_booking="+tgl_booking+"&kembali="+kembali+"&id_produk="+id_produk+"&jumlah="+jumlah,
                     cache:false,
                     success:function(html) {
-                        alert("Transaksi Peminjaman berhasil");
+                        alert("Transaksi Booking berhasil");
                         location.reload();
                     }
                 })
@@ -266,7 +266,7 @@ $this->load->view('_partials/sidebar');
             var id_produk=$(this).attr("id_produk");
             
             $.ajax({
-                url:"<?php echo site_url('peminjaman/hapus');?>",
+                url:"<?php echo site_url('booking/hapus');?>",
                 type:"POST",
                 data:"id_produk="+id_produk,
                 cache:false,
@@ -284,7 +284,7 @@ $this->load->view('_partials/sidebar');
             var cariProduk=$("#cariProduk").val();
             
             $.ajax({
-                url:"<?php echo site_url('peminjaman/pencarianbuku');?>",
+                url:"<?php echo site_url('booking/pencarianbuku');?>",
                 type:"POST",
                 data:"cariProduk="+cariProduk,
                 cache:false,
