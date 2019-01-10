@@ -60,17 +60,13 @@ $this->load->view('_partials/sidebar');
                     <div class="col-lg-7">
                         <select name="id_customer" class="form-control" id="id_customer">
                             <option>Pilih customer</option>
-                            <?php 
-                            foreach($result_customer_pilihan as $row)
-                            { 
-                              echo '<option value="'.$row['id_customer'].'">'.$row['nama'].'</option>';
-                            }
-                            ?>
+                            <?php foreach($result_customer_pilihan as $row): ?>
+                                <option value="<?= $row['id_customer'] ?>"><?= $row['nama'] ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
                 
-
                 <!-- <div class="form-group">
                     <label class="col-lg-4 control-label">ID Karyawan</label>
                     <div class="col-lg-7">
@@ -87,7 +83,6 @@ $this->load->view('_partials/sidebar');
                             <option>Pinjam</option>
                             <option>Kembali</option>
                             <option>Batal</option>
-                            
                         </select>
                     </div>
                 </div>
@@ -109,12 +104,9 @@ $this->load->view('_partials/sidebar');
                     <div class="col-lg-7">
                         <select name="id_customer" class="form-control" id="id_customer">
                             <option>Pilih Produk</option>
-                            <?php 
-                            foreach($result_produk_pilihan as $row)
-                            { 
-                              echo '<option value="'.$row['id_produk'].'"'.$row['nama'].'"></option>';
-                            }
-                            ?>
+                            <?php foreach($result_produk_pilihan as $row): ?> 
+                                <option value="<?= $row['id_produk'] ?>"><?= $row['nama'] ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
