@@ -102,7 +102,7 @@ $this->load->view('_partials/sidebar');
             <div class="form-group">
                     <label class="col-lg-4 control-label">ID Produk</label>
                     <div class="col-lg-7">
-                        <select name="id_customer" class="form-control" id="id_customer">
+                        <select name="id_produk" class="form-control" id="id_produk">
                             <option>Pilih Produk</option>
                             <?php foreach($result_produk_pilihan as $row): ?> 
                                 <option value="<?= $row['id_produk'] ?>"><?= $row['nama'] ?></option>
@@ -211,7 +211,29 @@ $this->load->view('_partials/sidebar');
             
         })
         
+        $("#id_produk").change(function() {
+            var id_produk=$("#id_produk").val();
         
+            $.ajax({
+                url:"<?php echo site_url('peminjaman/cariProduk'); ?>",
+                type:"POST",
+                data:"id_produk="+id_produk,
+                cache:false,
+                success:function(msg) {
+                    data=msg.split("|");
+                    if (data==0) {
+                        alert("Data produk tidak ditemukan");
+                        $("#nama").val('');
+                        $("#stok").val('');
+                    } else {
+                        $("#nama").val(data[0]);
+                        $("#stok").val(data[1]);
+                        $("#tambah").focus();
+                    }
+                }
+            })
+        })
+                
         $("#simpan").click(function() {
             var id_booking=$("#id_booking").val();
             var tgl_booking=$("#tgl_booking").val();
