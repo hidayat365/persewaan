@@ -136,20 +136,18 @@ $this->load->view('_partials/sidebar');
     </div>
 </div>
 
-  </section><!-- /.content -->
-  <?php
-  $this->load->view('_partials/js');
-  ?>
-  <!--tambahkan custom js disini-->
-  <?php
-  $this->load->view('_partials/footer');
-  ?>
-  <script>
-    $(function(){
+</section><!-- /.content -->
+
+<?php $this->load->view('_partials/js'); ?>
+<?php $this->load->view('_partials/footer'); ?>
+
+<!--tambahkan custom js disini-->
+<script>
+    $(function() {
         
         function loadData(args) {
             //code
-            $("#tampil").load("<?php echo site_url('peminjaman/tampil');?>");
+            $("#tampil").load("<?php echo site_url('booking/tampil');?>");
         }
         loadData();
         
@@ -160,12 +158,10 @@ $this->load->view('_partials/sidebar');
             $("#stok").val('');
         }
         
-        
-        
-        $("#id_produk").keypress(function(){
+        $("#id_produk").keypress(function() {
             var keycode = (event.keyCode ? event.keyCode : event.which);
             
-            if(keycode == '13'){
+            if(keycode == '13') {
                 var id_produk=$("#id_produk").val();
             
                 $.ajax({
@@ -173,13 +169,13 @@ $this->load->view('_partials/sidebar');
                     type:"POST",
                     data:"id_produk="+id_produk,
                     cache:false,
-                    success:function(msg){
+                    success:function(msg) {
                         data=msg.split("|");
                         if (data==0) {
-                            alert("data tidak ditemukan");
+                            alert("Data produk tidak ditemukan");
                             $("#nama").val('');
                             $("#stok").val('');
-                        }else{
+                        } else {
                             $("#nama").val(data[0]);
                             $("#stok").val(data[1]);
                             $("#tambah").focus();
@@ -189,26 +185,24 @@ $this->load->view('_partials/sidebar');
             }
         })
         
-        $("#tambah").click(function(){
+        $("#tambah").click(function() {
             var id_produk=$("#id_produk").val();
             var nama=$("#nama").val();
             var stok=$("#stok").val();
             
             if (id_produk=="") {
-                //code
                 alert("id_produk Produk Masih Kosong");
                 return false;
-            }else if (nama=="") {
-                //code
-                alert("Data tidak ditemukan");
+            } else if (nama=="") {
+                alert("Data produk tidak ditemukan");
                 return false
-            }else{
+            } else {
                 $.ajax({
                     url:"<?php echo site_url('peminjaman/tambah');?>",
                     type:"POST",
                     data:"id_produk="+id_produk+"&nama="+nama+"&stok="+stok,
                     cache:false,
-                    success:function(html){
+                    success:function(html) {
                         loadData();
                         kosong();
                     }
@@ -218,7 +212,7 @@ $this->load->view('_partials/sidebar');
         })
         
         
-        $("#simpan").click(function(){
+        $("#simpan").click(function() {
             var id_booking=$("#id_booking").val();
             var tgl_booking=$("#tgl_booking").val();
             var kembali=$("#kembali").val();
@@ -228,16 +222,16 @@ $this->load->view('_partials/sidebar');
             if (id_produk=="") {
                 alert("Pilih id_produk Siswa");
                 return false;
-            }else if (jumlah==0) {
+            } else if (jumlah==0) {
                 alert("pilih buku yang akan ditgl_booking");
                 return false;
-            }else{
+            } else {
                 $.ajax({
                     url:"<?php echo site_url('peminjaman/sukses');?>",
                     type:"POST",
                     data:"id_booking="+id_booking+"&tgl_booking="+tgl_booking+"&kembali="+kembali+"&id_produk="+id_produk+"&jumlah="+jumlah,
                     cache:false,
-                    success:function(html){
+                    success:function(html) {
                         alert("Transaksi Peminjaman berhasil");
                         location.reload();
                     }
@@ -246,7 +240,7 @@ $this->load->view('_partials/sidebar');
             
         })
         
-        $(".hapus").live("click",function(){
+        $(".hapus").on("click",function() {
             var id_produk=$(this).attr("id_produk");
             
             $.ajax({
@@ -254,17 +248,17 @@ $this->load->view('_partials/sidebar');
                 type:"POST",
                 data:"id_produk="+id_produk,
                 cache:false,
-                success:function(html){
+                success:function(html) {
                     loadData();
                 }
             });
         });
         
-        $("#cari").click(function(){
+        $("#cari").click(function() {
             $("#myModal2").modal("show");
         })
         
-        $("#cariProduk").keyup(function(){
+        $("#cariProduk").keyup(function() {
             var cariProduk=$("#cariProduk").val();
             
             $.ajax({
@@ -272,13 +266,13 @@ $this->load->view('_partials/sidebar');
                 type:"POST",
                 data:"cariProduk="+cariProduk,
                 cache:false,
-                success:function(html){
+                success:function(html) {
                     $("#tampilbuku").html(html);
                 }
             })
         })
         
-        $(".tambah").live("click",function(){
+        $(".tambah").on("click",function() {
             var id_produk=$(this).attr("id_produk");
             var nama=$(this).attr("nama");
             var stok=$(this).attr("stok");
