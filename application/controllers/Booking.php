@@ -70,6 +70,13 @@ class Booking extends CI_Controller {
 		 $this->mod->delete($id);
 		redirect(site_url('booking'));
 	}
+
+	public function tampil()
+	{
+		$data = [];
+		$this->parser->parse('booking/tampil_detail', $data);
+	}
+
 }
 
 /* End of file booking.php */
